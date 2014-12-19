@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
       qDebug() << "";
    }
    b.getBytePage(QUrl(deque[0].first));
-   QDesktopServices::openUrl(QUrl(deque[2].second));
+   //QDesktopServices::openUrl(QUrl(deque[2].second));
 
    QDateTime mDateTimeEnd(QDateTime::currentDateTime());
    int mTime = mDateTimeEnd.toTime_t() - mDateTimeStart.toTime_t();
@@ -142,8 +142,9 @@ int main(int argc, char *argv[])
 
 
    MainWindow w;
-   w.setpixmap(QImage::fromData(b.getBytePage(QUrl(deque[2].second))));
-   w.show();
+   w.setpixmap(QImage::fromData(b.getBytePage(QUrl(deque[4].second))), true);
+   w.setpixmap(QImage::fromData(b.getBytePage(QUrl(deque[5].second))), false);
+   w.showMaximized();
 
 
    return a.exec();

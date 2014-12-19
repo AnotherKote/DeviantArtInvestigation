@@ -17,12 +17,14 @@ SOURCES += main.cpp\
         browsertest.cpp \
         chtmlparser.cpp \
     ccookie.cpp \
-    imageviewer.cpp
+    imageviewer.cpp \
+    CImage.cpp
 
 HEADERS  += mainwindow.h \
             browsertest.h \
             chtmlparser.hpp \
     ccookie.hpp \
-    imageviewer.hpp
+    imageviewer.hpp \
+    CImage.hpp
 
 FORMS    += mainwindow.ui
