@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
 
    qDebug() << QString("</script>").size();
 
-   QString page = b.getPage(QUrl("http://www.deviantart.com/browse/all/"));
+   QString page = b.getPage(QUrl("http://www.deviantart.com/browse/all/?offset=50"));
    stringToFile(page, "MyOwnProject\\browse.all.html");
    std::deque <QPair<QString, QString>> deque;
 
@@ -130,8 +130,8 @@ int main(int argc, char *argv[])
    for (auto it : deque)
    {
       qDebug() << it.first;
-      qDebug() << it.second;
-      qDebug() << "";
+      //qDebug() << it.second;
+      //qDebug() << "";
    }
    b.getBytePage(QUrl(deque[0].first));
    //QDesktopServices::openUrl(QUrl(deque[2].second));

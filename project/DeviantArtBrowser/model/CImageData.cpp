@@ -1,9 +1,11 @@
 #include "CImageData.hpp"
 
-CImageData::CImageData(QByteArray previewData, QString fullSizeURL, QString sourcePageURL)
-   : mPreviewData(previewData),
+size_t CImageData::mCurrentID = 0;
+
+CImageData::CImageData(QString previewURL, QString fullSizeURL, QString sourcePageURL)
+   : mID(IDGenerator()),
+     mPreviewURL(previewURL),
      mFullSizeURL(fullSizeURL),
-     mSourcePageURL(sourcePageURL),
-     mID(IDGenerator())
+     mSourcePageURL(sourcePageURL)
 {
 }

@@ -6,15 +6,17 @@
 class CImageData
 {
    const size_t mID;
-   const QByteArray mPreviewData;
+   const QString mPreviewURL;
    const QString mFullSizeURL;
    const QString mSourcePageURL;
+   QByteArray mPreviewData;
    QByteArray mFullSizeData;
 
+   static size_t mCurrentID;
    static size_t IDGenerator();
-   static size_t current_id;
+
 public:
-   CImageData(QByteArray previewData,
+   CImageData(QString previewData,
               QString fullSizeURL,
               QString sourcePageURL);
 
@@ -22,13 +24,44 @@ public:
    const QByteArray& getFullSizeData() const;
    const QString& getFullSizeLink() const;
    const QString& getSourcePageLink() const;
+   const QString& getPreviewLink() const;
    void setFullSizeData (const QByteArray& data);
-
+   void setPreviewData (const QByteArray& data);
 };
 
 inline size_t CImageData::IDGenerator()
 {
-   return current_id++;
+   return mCurrentID++;
+}
+
+inline const QByteArray &CImageData::getPreview() const
+{
+   return mPreviewData;
+}
+
+inline const QString &CImageData::getFullSizeLink() const
+{
+   return mFullSizeURL;
+}
+
+inline const QString &CImageData::getSourcePageLink() const
+{
+   return mSourcePageURL;
+}
+
+inline const QString &CImageData::getPreviewLink() const
+{
+   return mPreviewURL;
+}
+
+inline void CImageData::setFullSizeData(const QByteArray &data)
+{
+   mFullSizeData = data;
+}
+
+inline void CImageData::setPreviewData(const QByteArray &data)
+{
+   mPreviewData = data;
 }
 
 #endif // CIMAGEDATA_HPP

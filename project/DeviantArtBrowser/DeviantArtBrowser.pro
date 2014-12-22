@@ -4,13 +4,13 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network webkitwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = DeviantArtBrowser
 TEMPLATE = app
-
+CONFIG += c++11
 
 SOURCES += main.cpp\
         CView.cpp \

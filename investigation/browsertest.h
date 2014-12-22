@@ -22,10 +22,10 @@ public:
     BrowserTest();
     ~BrowserTest();
     void redirect();
-    QString &getPage(QUrl url);
-    QByteArray &getBytePage(QUrl url);
-    QString &post(QUrl url, QByteArray data);
-    QString &authorization(QString login, QString password,
+    QString& getPage(QUrl url);
+    QByteArray& getBytePage(QUrl url);
+    QString& post(QUrl url, QByteArray data);
+    QString& authorization(QString login, QString password,
                           QString loginFieldName, QString passwordFieldName,
                           QUrl loginURL);
     QList<QNetworkCookie> getCookieForURL ();

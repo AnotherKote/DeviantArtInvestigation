@@ -1,5 +1,6 @@
 #ifndef CCONTROLLER_HPP
 #define CCONTROLLER_HPP
+#include <QObject>
 #include "CRequester.hpp"
 #include "CDeviantArtParser.hpp"
 #include "model/CModel.hpp"
@@ -7,9 +8,8 @@
 
 class CView;
 
-class CController
+class CController : public QObject
 {
-   Q_OBJECT
 
    CDeviantArtParser mDeviantArtParser;
    CRequester mRequester;

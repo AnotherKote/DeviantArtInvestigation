@@ -15,6 +15,8 @@ class CView : public QMainWindow
    Q_OBJECT
 
 private:
+   Ui::CView *ui;
+
    QList<CViewImage> mImagesToShow;
    size_t mNumberOfImagesOnPage;
    const CModel *const mModel;
@@ -25,7 +27,6 @@ public:
    ~CView();
 
 private:
-   Ui::CView *ui;
 };
 
 #endif // CVIEW_HPP
