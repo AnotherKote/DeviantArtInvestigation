@@ -4,11 +4,16 @@
 #include <QWebElementCollection>
 #include <QWebFrame>
 #include <memory>
+
+
 CDeviantArtParser::CDeviantArtParser()
 {
 }
 
-bool CDeviantArtParser::parseImagesFromBrowsePage(QString &page, QList<std::shared_ptr<CImageData>> &images)
+bool CDeviantArtParser::parseImagesFromBrowsePage(QString &page,
+                                                  QList<std::shared_ptr<CViewImage>> &images,
+                                                  const size_t count,
+                                                  CView* parent)
 {
    bool ret = true;
 
@@ -24,6 +29,7 @@ bool CDeviantArtParser::parseImagesFromBrowsePage(QString &page, QList<std::shar
    QString fullSizeUrl;
    QString previewUrl;
    QString sourceUrl;
+   size_t i = 0;
    foreach (auto it, pictures)
    {
       if(it.findFirst("a").hasAttribute("data-super-img"))
@@ -50,9 +56,13 @@ bool CDeviantArtParser::parseImagesFromBrowsePage(QString &page, QList<std::shar
             break;
             ///<@todo make error string; error: "cannot parse preview image from tag image and attribut src"
          }
-         images.push_back(std::make_shared<CImageData> (CImageData(previewUrl, fullSizeUrl, sourceUrl)));
+//         parent->addImage(std::shared_ptr<CViewImage>(new CViewImage(previewUrl, fullSizeUrl, sourceUrl, parent)));
+         images.push_back(std::shared_ptr<CViewImage>(new CViewImage(previewUrl, fullSizeUrl, sourceUrl, parent)));
       }
-
+      if(i++ > count)
+      {
+         break;
+      }
    }
    return ret;
 }

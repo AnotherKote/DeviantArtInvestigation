@@ -19,12 +19,12 @@ public:
    CImageData(QString previewData,
               QString fullSizeURL,
               QString sourcePageURL);
-
    const QByteArray& getPreview() const;
    const QByteArray& getFullSizeData() const;
    const QString& getFullSizeLink() const;
    const QString& getSourcePageLink() const;
-   const QString& getPreviewLink() const;
+   const QString& getPreviewURL() const;
+
    void setFullSizeData (const QByteArray& data);
    void setPreviewData (const QByteArray& data);
 };
@@ -49,7 +49,7 @@ inline const QString &CImageData::getSourcePageLink() const
    return mSourcePageURL;
 }
 
-inline const QString &CImageData::getPreviewLink() const
+inline const QString &CImageData::getPreviewURL() const
 {
    return mPreviewURL;
 }

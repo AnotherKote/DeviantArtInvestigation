@@ -14,23 +14,14 @@ CRequester::CRequester(QObject *parent)
 {
    InitializeCriticalSection(&mCriticalSection);
 
-   for(size_t it = 0; it < 5; it++)
-   {
-      mNetMagagerList.push_back(new QNetworkAccessManager);
-   }
-
    QNetworkProxy proxy;
    proxy.setType(QNetworkProxy::HttpProxy);
    proxy.setHostName("localhost");
    proxy.setPort(8888);
-   QNetworkProxy::setApplicationProxy(proxy);
-//   mNetManager->setProxy(proxy);
+//   QNetworkProxy::setApplicationProxy(proxy);
+   mNetManager->setProxy(proxy);
    QObject::connect(mNetManager, SIGNAL(finished(QNetworkReply*)),&mLoadFinishedLoop, SLOT(quit()));
    QObject::connect(mNetManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finishedSlot(QNetworkReply*)));
-   for(auto manager: mNetMagagerList)
-   {
-      QObject::connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finishedSlot(QNetworkReply*)));
-   }
 }
 
 QByteArray CRequester::get(QString url)
@@ -90,16 +81,12 @@ QList<QPair<QByteArray,QString>>& CRequester::getAsync(QList<QString> &urls)
 CRequester::~CRequester()
 {
    delete mNetManager;
-   for (auto it: mNetMagagerList)
-   {
-      delete it;
-   }
    DeleteCriticalSection(&mCriticalSection);
 }
 
 void CRequester::finishedSlot(QNetworkReply *reply)
 {
-   //EnterCriticalSection(&mCriticalSection);
+   EnterCriticalSection(&mCriticalSection);
    mSync--;
    qDebug() << "finished loop " << mSync;
    QVariant redirectionTargetUrl = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
@@ -127,5 +114,5 @@ void CRequester::finishedSlot(QNetworkReply *reply)
 
    delete reply;
 
-   //LeaveCriticalSection(&mCriticalSection);
+   LeaveCriticalSection(&mCriticalSection);
 }

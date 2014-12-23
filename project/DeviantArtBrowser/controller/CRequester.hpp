@@ -7,6 +7,7 @@
 #include <QEventLoop>
 #include <QUrl>
 #include <QList>
+
 #include "windows.h"
 
 class CRequester : public QObject
@@ -14,7 +15,6 @@ class CRequester : public QObject
    Q_OBJECT
 
    QNetworkAccessManager* mNetManager;
-   QList<QNetworkAccessManager*> mNetMagagerList;
 
    QUrl mRedirectionURL;
    QEventLoop mLoadFinishedLoop;
@@ -29,7 +29,6 @@ public:
    static bool autoRedirect;
 
    explicit CRequester(QObject *parent = 0);
-
    QByteArray get(QString url);
    QByteArray& post(QString url, QByteArray &data);
    QList<QPair<QByteArray, QString>> &getAsync(QList<QString> &urls);

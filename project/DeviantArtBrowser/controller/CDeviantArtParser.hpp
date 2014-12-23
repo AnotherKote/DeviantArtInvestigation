@@ -4,15 +4,22 @@
 #include <QList>
 #include <QImage>
 #include <QByteArray>
-#include <model/CImageData.hpp>
 #include <memory>
+#include <QWidget>
+#include "CViewImage.hpp"
+#include "CView.hpp"
+
+class CView;
 
 class CDeviantArtParser
 {
 public:
    CDeviantArtParser();
 
-   bool parseImagesFromBrowsePage(QString &page, QList<std::shared_ptr<CImageData>> &images);
+   bool parseImagesFromBrowsePage(QString &page,
+                                  QList<std::shared_ptr<CViewImage>> &images,
+                                  const size_t count,
+                                  CView *parent);
 };
 
 #endif // CDEVIANTARTPARSER_HPP

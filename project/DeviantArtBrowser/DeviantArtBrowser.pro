@@ -18,15 +18,15 @@ SOURCES += main.cpp\
     controller/CController.cpp \
     controller/CRequester.cpp \
     controller/CDeviantArtParser.cpp \
-    model/CModel.cpp \
-    model/CImageData.cpp
+#    model/CModel.cpp \
+#    model/CViewImage.cpp
 
 HEADERS  += CView.hpp \
     CViewImage.hpp \
     controller/CController.hpp \
     controller/CRequester.hpp \
     controller/CDeviantArtParser.hpp \
-    model/CModel.hpp \
-    model/CImageData.hpp
+#    model/CModel.hpp \
+#    model/CViewImage.hpp
 
 FORMS    += CView.ui
