@@ -1,3 +1,4 @@
+#include <QMouseEvent>
 #include "CViewImage.hpp"
 #include <QPainter>
 #include <QDebug>
@@ -9,7 +10,8 @@ CViewImage::CViewImage(QString previewURL, QString fullSizeURL, QString sourcePa
    mPreviewURL(previewURL),
    mFullSizeURL(fullSizeURL),
    mSourcePageURL(sourcePageURL),
-   mButtonsSize(QSize(50, 20))
+   mButtonsSize(QSize(50, 20)),
+   mIsPreview(true)
 {
    mSaveButton.setParent(this);
    mSaveButton.setText("Save");
@@ -42,17 +44,33 @@ void CViewImage::paintEvent(QPaintEvent *)
 {
    QPainter p;
    p.begin(this);
-   QSize previewSize = mImagePreview.size().scaled(imageAreaSize(), Qt::KeepAspectRatio);
+   if(mIsPreview)
+   {
+      QSize previewSize = mImagePreview.size().scaled(imageAreaSize(), Qt::KeepAspectRatio);
 
-   int x = (width() - previewSize.width())/2;
-   int y = (height() - previewSize.height() - mButtonsSize.height())/2;
+      int x = (width() - previewSize.width())/2;
+      int y = (height() - previewSize.height() - mButtonsSize.height())/2;
 
-   p.drawImage(x,y, mImagePreview.scaled(imageAreaSize(),Qt::KeepAspectRatio));
+      p.drawImage(x,y, mImagePreview.scaled(imageAreaSize(),Qt::KeepAspectRatio));
+   }else
+   {
+      resize(mImageFullSize.size());
+      p.drawImage(0,0,mImageFullSize);
+   }
 }
 
-void CViewImage::mousePressEvent(QMouseEvent *)
+void CViewImage::mousePressEvent(QMouseEvent *event)
 {
-   qDebug() << "mouse pressed" << mID;
+   mClickTrackPoint = event->pos() ;
+}
+
+#include "CView.hpp"
+void CViewImage::mouseReleaseEvent(QMouseEvent *event)
+{
+   if(mClickTrackPoint == event->pos())
+   {
+      emit dynamic_cast<CView*>(parentWidget())->showFullSizePictureSignal(mID);
+   }
 }
 
 void CViewImage::resizeEvent(QResizeEvent *)
@@ -67,3 +85,4 @@ QSize CViewImage::imageAreaSize()
 {
    return QSize(width(), height()-mButtonsSize.height());
 }
+

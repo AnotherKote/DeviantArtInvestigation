@@ -23,7 +23,8 @@ class CViewImage : public QWidget
    QSize mButtonsSize;
    static size_t mCurrentID;
    static size_t IDGenerator();
-
+   bool mIsPreview;
+   QPoint mClickTrackPoint;
 public:
    explicit CViewImage(QString previewURL, QString fullSizeURL, QString sourcePageURL, QWidget *parent = 0);
 
@@ -34,7 +35,11 @@ public:
    void setFullSizeData (const QByteArray& data);
    void setPreviewData (const QByteArray& data);
 
+   void setThisPreview();
+   void setThisFullSize();
+   size_t getID() const;
 signals:
+   void showFullSizePictureSignal(size_t id);
 
 public slots:
    void saveButtonPressed();
@@ -44,9 +49,9 @@ public slots:
    // QWidget interface
 protected:
    void paintEvent(QPaintEvent *);
-   void mousePressEvent(QMouseEvent *);
+   void mousePressEvent(QMouseEvent *event);
+   void mouseReleaseEvent(QMouseEvent *event);
    void resizeEvent(QResizeEvent *);
-
    QSize imageAreaSize();
 };
 
@@ -78,6 +83,21 @@ inline void CViewImage::setFullSizeData(const QByteArray &data)
 inline void CViewImage::setPreviewData(const QByteArray &data)
 {
    mImagePreview = QImage(QImage::fromData(data));
+}
+
+inline void CViewImage::setThisPreview()
+{
+   mIsPreview = true;
+}
+
+inline void CViewImage::setThisFullSize()
+{
+   mIsPreview = false;
+}
+
+inline size_t CViewImage::getID() const
+{
+   return mID;
 }
 
 #endif // CVIEWIMAGE_HPP

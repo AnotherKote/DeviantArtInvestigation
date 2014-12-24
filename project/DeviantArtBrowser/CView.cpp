@@ -28,7 +28,7 @@ CView::CView(QWidget *parent, CController *cont) :
 
    connect(&mNextButton, &QPushButton::released, this, &CView::nextButtonPressed);
    connect(&mPrevButton, &QPushButton::released, this, &CView::previousButtonPressed);
-
+   connect(this, &CView::showFullSizePictureSignal, this, &CView::showFullSizePictureSlot);
 }
 
 CView::~CView()
@@ -104,6 +104,20 @@ void CView::nextButtonPressed()
 void CView::previousButtonPressed()
 {
    qDebug() << "prev";
+}
+
+void CView::showFullSizePictureSlot(size_t ID)
+{
+   for(auto it: mImagesToShow[mCurrentList])
+   {
+      if((*it).getID() == ID)
+      {
+         mController->loadFullSizePicture(it);
+         (*it).setThisFullSize();
+         (*it).setParent(0);
+         (*it).show();
+      }
+   }
 }
 
 void CView::paintEvent(QPaintEvent *)

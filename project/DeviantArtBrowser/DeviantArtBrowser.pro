@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = DeviantArtBrowser
 TEMPLATE = app
 CONFIG += c++11
+CONFIG -= console
 
 SOURCES += main.cpp\
         CView.cpp \
@@ -18,16 +19,12 @@ SOURCES += main.cpp\
     controller/CController.cpp \
     controller/CRequester.cpp \
     controller/CDeviantArtParser.cpp \
-#    model/CModel.cpp \
-#    model/CViewImage.cpp
 
 HEADERS  += CView.hpp \
     CViewImage.hpp \
     controller/CController.hpp \
     controller/CRequester.hpp \
     controller/CDeviantArtParser.hpp \
-#    model/CModel.hpp \
-#    model/CViewImage.hpp
     controller/CMyCoolIterator.hpp
 
 FORMS    += CView.ui

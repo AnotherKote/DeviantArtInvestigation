@@ -21,11 +21,10 @@ class CController: public QObject
 public:
    CController();
    ~CController();
-   void loadFullSizePicture(size_t id);
+   void loadFullSizePicture(std::shared_ptr<CViewImage> picture);
    void saveFullSizePicture(size_t id);
    void setNumberOfImagesOnPage(size_t number);
    void setOffset();
-
 public slots:
    void loadNextPageSlot();
 

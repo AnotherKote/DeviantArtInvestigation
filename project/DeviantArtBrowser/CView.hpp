@@ -42,11 +42,13 @@ private slots:
    void displayImagesSlot();
    void nextButtonPressed();
    void previousButtonPressed();
+   void showFullSizePictureSlot(size_t ID);
 
 signals:
    void loadFinishedSignal();
    void loadNextPageSignal();
-   // QWidget interface
+   void showFullSizePictureSignal(size_t ID);
+
 protected:
    void paintEvent(QPaintEvent *);
    void resizeEvent(QResizeEvent *);
