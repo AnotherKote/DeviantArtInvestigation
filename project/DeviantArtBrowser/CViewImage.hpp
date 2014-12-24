@@ -23,7 +23,7 @@ class CViewImage : public QWidget
    QSize mButtonsSize;
    static size_t mCurrentID;
    static size_t IDGenerator();
-   bool mIsPreview;
+
    QPoint mClickTrackPoint;
 public:
    explicit CViewImage(QString previewURL, QString fullSizeURL, QString sourcePageURL, QWidget *parent = 0);
@@ -31,12 +31,11 @@ public:
    const QString& getFullSizeLink() const;
    const QString& getSourcePageLink() const;
    const QString& getPreviewURL() const;
+   const QImage &getFullSizeImage() const;
 
    void setFullSizeData (const QByteArray& data);
    void setPreviewData (const QByteArray& data);
 
-   void setThisPreview();
-   void setThisFullSize();
    size_t getID() const;
 signals:
    void showFullSizePictureSignal(size_t id);
@@ -75,24 +74,19 @@ inline const QString &CViewImage::getPreviewURL() const
    return mPreviewURL;
 }
 
+inline const QImage& CViewImage::getFullSizeImage() const
+{
+   return mImageFullSize;
+}
+
 inline void CViewImage::setFullSizeData(const QByteArray &data)
 {
-   mImageFullSize = QImage(data);
+   mImageFullSize = QImage(QImage::fromData(data));
 }
 
 inline void CViewImage::setPreviewData(const QByteArray &data)
 {
    mImagePreview = QImage(QImage::fromData(data));
-}
-
-inline void CViewImage::setThisPreview()
-{
-   mIsPreview = true;
-}
-
-inline void CViewImage::setThisFullSize()
-{
-   mIsPreview = false;
 }
 
 inline size_t CViewImage::getID() const

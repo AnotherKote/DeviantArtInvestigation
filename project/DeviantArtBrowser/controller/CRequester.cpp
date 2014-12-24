@@ -27,6 +27,7 @@ CRequester::CRequester(QObject *parent)
 
 QByteArray CRequester::get(QString url)
 {
+   EnterCriticalSection(&mCriticalSection);
    mResultDataList.clear();
    qDebug() << "Getting " << url;
 
@@ -36,6 +37,7 @@ QByteArray CRequester::get(QString url)
 
    redirect();
    return ((*mResultDataList.begin()).first);
+   LeaveCriticalSection(&mCriticalSection);
 }
 
 QByteArray& CRequester::post(QString url, QByteArray &data)
@@ -63,6 +65,7 @@ QByteArray& CRequester::post(QString url, QByteArray &data)
 
 QList<QPair<QByteArray,QString>>& CRequester::getAsync(QList<QString> &urls)
 {
+   EnterCriticalSection(&mCriticalSection);
    mResultDataList.clear();
    mSync = urls.size();
    for (auto url: urls)
@@ -77,6 +80,7 @@ QList<QPair<QByteArray,QString>>& CRequester::getAsync(QList<QString> &urls)
       }
    }
    return mResultDataList;
+   LeaveCriticalSection(&mCriticalSection);
 }
 
 CRequester::~CRequester()

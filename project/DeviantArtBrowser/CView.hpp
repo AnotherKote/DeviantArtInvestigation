@@ -6,6 +6,7 @@
 #include "controller/CController.hpp"
 #include <QPushButton>
 #include <controller/CMyCoolIterator.hpp>
+#include "CFullSizeView.hpp"
 
 namespace Ui {
    class CView;
@@ -20,6 +21,8 @@ private:
    CMyCoolIterator mCurrentList;
    QList<std::shared_ptr<CViewImage>> mImagesToShow[CMyCoolIterator::MAX];
    CController *const mController;
+
+   CFullSizeView* mCurrentFullSizeImage;
 
    size_t mChildsAmountHorizontal;
    size_t mChildsAmountVertical;

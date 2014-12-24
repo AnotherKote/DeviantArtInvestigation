@@ -1,6 +1,6 @@
 #include "CView.hpp"
 #include "ui_CView.h"
-
+#include "CFullSizeView.hpp"
 
 CView::CView(QWidget *parent, CController *cont) :
    QMainWindow(parent),
@@ -108,14 +108,18 @@ void CView::previousButtonPressed()
 
 void CView::showFullSizePictureSlot(size_t ID)
 {
+   if(mCurrentFullSizeImage != nullptr)
+   {
+      delete mCurrentFullSizeImage;
+   }
    for(auto it: mImagesToShow[mCurrentList])
    {
       if((*it).getID() == ID)
       {
          mController->loadFullSizePicture(it);
-         (*it).setThisFullSize();
-         (*it).setParent(0);
-         (*it).show();
+         mCurrentFullSizeImage = new CFullSizeView((*it).getFullSizeImage(), this);
+         mCurrentFullSizeImage->show();
+         break;
       }
    }
 }

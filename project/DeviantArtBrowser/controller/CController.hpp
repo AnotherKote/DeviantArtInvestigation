@@ -1,6 +1,5 @@
 #ifndef CCONTROLLER_HPP
 #define CCONTROLLER_HPP
-//#include <QObject>
 #include "CRequester.hpp"
 #include "CDeviantArtParser.hpp"
 #include "CView.hpp"
@@ -17,7 +16,6 @@ class CController: public QObject
 
    CView *mView;
    void loadImages();
-
 public:
    CController();
    ~CController();

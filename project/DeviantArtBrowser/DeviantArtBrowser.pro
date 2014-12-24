@@ -19,12 +19,14 @@ SOURCES += main.cpp\
     controller/CController.cpp \
     controller/CRequester.cpp \
     controller/CDeviantArtParser.cpp \
+    CFullSizeView.cpp
 
 HEADERS  += CView.hpp \
     CViewImage.hpp \
     controller/CController.hpp \
     controller/CRequester.hpp \
     controller/CDeviantArtParser.hpp \
-    controller/CMyCoolIterator.hpp
+    controller/CMyCoolIterator.hpp \
+    CFullSizeView.hpp
 
 FORMS    += CView.ui

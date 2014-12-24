@@ -29,8 +29,6 @@ void CController::loadFullSizePicture(std::shared_ptr<CViewImage> picture)
    (*picture).setFullSizeData(mRequester.get((*picture).getFullSizeLink()));
 }
 
-
-
 void CController::loadImages()
 {
    QString htmlPage = mRequester.get(QString("http://www.deviantart.com/browse/all/") +
