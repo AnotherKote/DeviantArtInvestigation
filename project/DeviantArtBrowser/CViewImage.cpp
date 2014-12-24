@@ -42,19 +42,11 @@ void CViewImage::paintEvent(QPaintEvent *)
 {
    QPainter p;
    p.begin(this);
-   QSize previewSize = mImagePreview.size().scaled(imageAreaSize(),Qt::KeepAspectRatio);
-   int x = 0, y = 0;
-   if(width() > height())
-   {
-      x = (width() - previewSize.width())/2;
-   }else
-   if (width() < height())
-   {
-      y = (height() + mButtonsSize.height() - previewSize.height())/2;
-   } else
-   {
-      //even
-   }
+   QSize previewSize = mImagePreview.size().scaled(imageAreaSize(), Qt::KeepAspectRatio);
+
+   int x = (width() - previewSize.width())/2;
+   int y = (height() - previewSize.height() - mButtonsSize.height())/2;
+
    p.drawImage(x,y, mImagePreview.scaled(imageAreaSize(),Qt::KeepAspectRatio));
 }
 

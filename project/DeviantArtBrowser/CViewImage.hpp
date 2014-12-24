@@ -25,7 +25,7 @@ class CViewImage : public QWidget
    static size_t IDGenerator();
 
 public:
-   explicit CViewImage(QString previewURL, QString fullSizeURL, QString sourcePageURL, QWidget *parent);
+   explicit CViewImage(QString previewURL, QString fullSizeURL, QString sourcePageURL, QWidget *parent = 0);
 
    const QString& getFullSizeLink() const;
    const QString& getSourcePageLink() const;

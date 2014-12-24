@@ -8,6 +8,14 @@ CController::CController()
 {
    mView = new CView(nullptr, this);
    mView->show();
+
+   QWidget::connect (mView, &CView::loadNextPageSignal, this, &CController::loadNextPageSlot);
+   loadImages();
+   mOffset += mNumberOfImagesOnPage;
+   mView->showImages();
+//   loadImages();
+//   emit mView->loadFinishedSignal();
+//   mOffset += mNumberOfImagesOnPage;
 }
 
 CController::~CController()
@@ -16,7 +24,7 @@ CController::~CController()
    delete mDeviantArtParser;
 }
 
-void CController::loadNextPage()
+void CController::loadImages()
 {
    QString htmlPage = mRequester.get(QString("http://www.deviantart.com/browse/all/") +
                                      QString("?offset=") +
@@ -24,8 +32,7 @@ void CController::loadNextPage()
    QList<std::shared_ptr<CViewImage>> imagesList;
    mDeviantArtParser->parseImagesFromBrowsePage(htmlPage,
                                                imagesList,
-                                               mNumberOfImagesOnPage,
-                                               mView);
+                                               mNumberOfImagesOnPage);
    QList<QString> previewURLs;
    for(auto it: imagesList)
    {
@@ -43,6 +50,7 @@ void CController::loadNextPage()
          if(data.second == (*pImage).getPreviewURL())
          {
             (*pImage).setPreviewData(data.first);
+            qDebug () << "setPrevData";
             break;
          }
       }
@@ -51,7 +59,13 @@ void CController::loadNextPage()
    {
       mView->addImage(pImage);
    }
+}
 
+void CController::loadNextPageSlot()
+{
+   mView->clearOldestList();
+   loadImages();
+   mOffset += mNumberOfImagesOnPage;
    emit mView->loadFinishedSignal();
 }
 

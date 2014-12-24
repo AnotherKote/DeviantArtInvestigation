@@ -8,8 +8,10 @@
 #include <QUrl>
 #include <QList>
 
+namespace NWindowsGarbage
+{
 #include "windows.h"
-
+}
 class CRequester : public QObject
 {
    Q_OBJECT
@@ -22,7 +24,7 @@ class CRequester : public QObject
    QList<QPair<QByteArray, QString>> mResultDataList;
    size_t mSync;
 
-   CRITICAL_SECTION mCriticalSection;
+   NWindowsGarbage::CRITICAL_SECTION mCriticalSection;
 
    void redirect();
 public:

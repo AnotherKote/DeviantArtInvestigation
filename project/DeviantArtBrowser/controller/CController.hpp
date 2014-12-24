@@ -1,21 +1,22 @@
 #ifndef CCONTROLLER_HPP
 #define CCONTROLLER_HPP
-#include <QObject>
+//#include <QObject>
 #include "CRequester.hpp"
 #include "CDeviantArtParser.hpp"
-//#include "model/CModel.hpp"
 #include "CView.hpp"
 
 class CView;
-class CDeviantArtParser;
-class CController : public QObject
+class CController: public QObject
 {
+   Q_OBJECT
+
    CDeviantArtParser *mDeviantArtParser;
    CRequester mRequester;
    size_t mNumberOfImagesOnPage;
    size_t mOffset;
-//   CModel * mModel;
+
    CView *mView;
+   void loadImages();
 
 public:
    CController();
@@ -24,7 +25,13 @@ public:
    void saveFullSizePicture(size_t id);
    void setNumberOfImagesOnPage(size_t number);
    void setOffset();
-   void loadNextPage();
+
+public slots:
+   void loadNextPageSlot();
+
+signals:
+   void loadNextPageSignal();
 };
 
 #endif // CCONTROLLER_HPP
+//#include "main.moc"

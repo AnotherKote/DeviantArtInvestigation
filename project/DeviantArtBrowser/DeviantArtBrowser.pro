@@ -28,5 +28,6 @@ HEADERS  += CView.hpp \
     controller/CDeviantArtParser.hpp \
 #    model/CModel.hpp \
 #    model/CViewImage.hpp
+    controller/CMyCoolIterator.hpp
 
 FORMS    += CView.ui

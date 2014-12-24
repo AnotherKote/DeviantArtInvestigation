@@ -7,9 +7,7 @@
 #include <memory>
 #include <QWidget>
 #include "CViewImage.hpp"
-#include "CView.hpp"
 
-class CView;
 
 class CDeviantArtParser
 {
@@ -18,8 +16,7 @@ public:
 
    bool parseImagesFromBrowsePage(QString &page,
                                   QList<std::shared_ptr<CViewImage>> &images,
-                                  const size_t count,
-                                  CView *parent);
+                                  const size_t count);
 };
 
 #endif // CDEVIANTARTPARSER_HPP

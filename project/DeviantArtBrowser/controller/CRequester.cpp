@@ -3,6 +3,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QDebug>
 
+using namespace NWindowsGarbage;
 
 bool CRequester::autoRedirect = true;
 

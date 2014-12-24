@@ -101,6 +101,5 @@ int main(int argc, char *argv[])
    QApplication a(argc, argv);
    CModelControllerTest();
    CController c;
-   c.loadNextPage();
    return a.exec();
 }

@@ -12,8 +12,7 @@ CDeviantArtParser::CDeviantArtParser()
 
 bool CDeviantArtParser::parseImagesFromBrowsePage(QString &page,
                                                   QList<std::shared_ptr<CViewImage>> &images,
-                                                  const size_t count,
-                                                  CView* parent)
+                                                  const size_t count)
 {
    bool ret = true;
 
@@ -57,7 +56,7 @@ bool CDeviantArtParser::parseImagesFromBrowsePage(QString &page,
             ///<@todo make error string; error: "cannot parse preview image from tag image and attribut src"
          }
 //         parent->addImage(std::shared_ptr<CViewImage>(new CViewImage(previewUrl, fullSizeUrl, sourceUrl, parent)));
-         images.push_back(std::shared_ptr<CViewImage>(new CViewImage(previewUrl, fullSizeUrl, sourceUrl, parent)));
+         images.push_back(std::shared_ptr<CViewImage>(new CViewImage(previewUrl, fullSizeUrl, sourceUrl)));
       }
       if(i++ > count)
       {
