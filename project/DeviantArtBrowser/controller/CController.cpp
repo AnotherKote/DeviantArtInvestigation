@@ -6,6 +6,8 @@ CController::CController()
      mOffset(0),
      mView(nullptr)
 {
+   InitializeCriticalSection(&mCriticalSection);
+
    mView = new CView(nullptr, this);
    mView->show();
 
@@ -20,20 +22,25 @@ CController::CController()
 
 CController::~CController()
 {
+   DeleteCriticalSection(&mCriticalSection);
    delete mView;
    delete mDeviantArtParser;
 }
 
 void CController::loadFullSizePicture(std::shared_ptr<CViewImage> picture)
 {
+   EnterCriticalSection(&mCriticalSection);
    (*picture).setFullSizeData(mRequester.get((*picture).getFullSizeLink()));
+   LeaveCriticalSection(&mCriticalSection);
 }
 
 void CController::loadImages()
 {
+   EnterCriticalSection(&mCriticalSection);
    QString htmlPage = mRequester.get(QString("http://www.deviantart.com/browse/all/") +
                                      QString("?offset=") +
                                      QString::number(mOffset));
+   LeaveCriticalSection(&mCriticalSection);
    QList<std::shared_ptr<CViewImage>> imagesList;
    mDeviantArtParser->parseImagesFromBrowsePage(htmlPage,
                                                imagesList,

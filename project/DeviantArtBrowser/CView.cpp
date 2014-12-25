@@ -20,6 +20,7 @@ CView::CView(QWidget *parent, CController *cont) :
    mNextButton.setText("Next");
    mNextButton.setToolTip("Next page");
    mNextButton.setShortcut(Qt::Key_Alt + Qt::Key_Right);
+   mNextButton.hide();
 
    mPrevButton.setParent(this);
    mPrevButton.setText("Prev");
@@ -117,7 +118,7 @@ void CView::showFullSizePictureSlot(size_t ID)
       if((*it).getID() == ID)
       {
          mController->loadFullSizePicture(it);
-         mCurrentFullSizeImage = new CFullSizeView((*it).getFullSizeImage(), this);
+         mCurrentFullSizeImage = new CFullSizeView((*it).getFullSizeImage(), 0);
          mCurrentFullSizeImage->show();
          break;
       }

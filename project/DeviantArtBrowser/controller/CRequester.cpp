@@ -36,8 +36,8 @@ QByteArray CRequester::get(QString url)
    mLoadFinishedLoop.exec();
 
    redirect();
-   return ((*mResultDataList.begin()).first);
    LeaveCriticalSection(&mCriticalSection);
+   return ((*mResultDataList.begin()).first);
 }
 
 QByteArray& CRequester::post(QString url, QByteArray &data)

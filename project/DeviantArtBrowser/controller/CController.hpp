@@ -16,6 +16,7 @@ class CController: public QObject
 
    CView *mView;
    void loadImages();
+   NWindowsGarbage::CRITICAL_SECTION mCriticalSection;
 public:
    CController();
    ~CController();
