@@ -1,4 +1,5 @@
 #include "CController.hpp"
+#include <QDesktopServices>
 
 CController::CController()
    : mDeviantArtParser(new CDeviantArtParser),
@@ -12,12 +13,10 @@ CController::CController()
    mView->show();
 
    QWidget::connect (mView, &CView::loadNextPageSignal, this, &CController::loadNextPageSlot);
+   connect (this, &CController::openSourcePageSignal, this, &CController::openSourcePageSlot);
    loadImages();
    mOffset += mNumberOfImagesOnPage;
    mView->showImages();
-//   loadImages();
-//   emit mView->loadFinishedSignal();
-//   mOffset += mNumberOfImagesOnPage;
 }
 
 CController::~CController()
@@ -29,18 +28,20 @@ CController::~CController()
 
 void CController::loadFullSizePicture(std::shared_ptr<CViewImage> picture)
 {
-   EnterCriticalSection(&mCriticalSection);
+//   EnterCriticalSection(&mCriticalSection);
+   mMutex.lock();
    (*picture).setFullSizeData(mRequester.get((*picture).getFullSizeLink()));
-   LeaveCriticalSection(&mCriticalSection);
+   mMutex.unlock();
+//   LeaveCriticalSection(&mCriticalSection);
 }
 
 void CController::loadImages()
 {
-   EnterCriticalSection(&mCriticalSection);
+//   EnterCriticalSection(&mCriticalSection);
+   mMutex.lock();
    QString htmlPage = mRequester.get(QString("http://www.deviantart.com/browse/all/") +
                                      QString("?offset=") +
                                      QString::number(mOffset));
-   LeaveCriticalSection(&mCriticalSection);
    QList<std::shared_ptr<CViewImage>> imagesList;
    mDeviantArtParser->parseImagesFromBrowsePage(htmlPage,
                                                imagesList,
@@ -53,7 +54,9 @@ void CController::loadImages()
 
    QList<QPair<QByteArray, QString>> previewData;
    previewData = mRequester.getAsync(previewURLs);
-   Q_ASSERT(previewData.size()==imagesList.size());
+   mMutex.unlock();
+//   LeaveCriticalSection(&mCriticalSection);
+//   Q_ASSERT(previewData.size()==imagesList.size());
 
    for(auto data: previewData)
    {
@@ -62,7 +65,6 @@ void CController::loadImages()
          if(data.second == (*pImage).getPreviewURL())
          {
             (*pImage).setPreviewData(data.first);
-            qDebug () << "setPrevData";
             break;
          }
       }
@@ -79,5 +81,10 @@ void CController::loadNextPageSlot()
    loadImages();
    mOffset += mNumberOfImagesOnPage;
    emit mView->loadFinishedSignal();
+}
+
+void CController::openSourcePageSlot(QString URL)
+{
+   QDesktopServices::openUrl(QUrl(URL));
 }
 

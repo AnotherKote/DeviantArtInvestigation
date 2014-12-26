@@ -20,7 +20,7 @@ CView::CView(QWidget *parent, CController *cont) :
    mNextButton.setText("Next");
    mNextButton.setToolTip("Next page");
    mNextButton.setShortcut(Qt::Key_Alt + Qt::Key_Right);
-   mNextButton.hide();
+   mNextButton.setEnabled(mCanShowNextPage);
 
    mPrevButton.setParent(this);
    mPrevButton.setText("Prev");
@@ -30,6 +30,7 @@ CView::CView(QWidget *parent, CController *cont) :
    connect(&mNextButton, &QPushButton::released, this, &CView::nextButtonPressed);
    connect(&mPrevButton, &QPushButton::released, this, &CView::previousButtonPressed);
    connect(this, &CView::showFullSizePictureSignal, this, &CView::showFullSizePictureSlot);
+   connect(this, &CView::openSourcePageSignal, this, &CView::openSourcePageSlot);
 }
 
 CView::~CView()
@@ -60,7 +61,7 @@ void CView::showImages()
    hideImages();
    mCurrentList++;
    mCanShowNextPage = false;
-   mNextButton.hide();
+   mNextButton.setEnabled(mCanShowNextPage);
    int count = 0;
    size_t row = 0, column = 0;
    for (auto pImage: mImagesToShow[mCurrentList])
@@ -91,7 +92,7 @@ void CView::showImages()
 void CView::displayImagesSlot()
 {
    mCanShowNextPage = true;
-   mNextButton.show();
+   mNextButton.setEnabled(mCanShowNextPage);
 }
 
 void CView::nextButtonPressed()
@@ -120,6 +121,18 @@ void CView::showFullSizePictureSlot(size_t ID)
          mController->loadFullSizePicture(it);
          mCurrentFullSizeImage = new CFullSizeView((*it).getFullSizeImage(), 0);
          mCurrentFullSizeImage->show();
+         break;
+      }
+   }
+}
+
+void CView::openSourcePageSlot(size_t ID)
+{
+   for(auto it: mImagesToShow[mCurrentList])
+   {
+      if((*it).getID() == ID)
+      {
+         emit mController->openSourcePageSignal((*it).getSourcePageLink());
          break;
       }
    }

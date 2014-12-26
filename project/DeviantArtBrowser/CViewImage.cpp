@@ -33,7 +33,7 @@ void CViewImage::saveButtonPressed()
 
 void CViewImage::sourceURLButtonPressed()
 {
-
+   emit dynamic_cast<CView*>(parentWidget())->openSourcePageSignal(mID);
 }
 
 void CViewImage::showFullSizeImage()

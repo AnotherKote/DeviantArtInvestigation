@@ -46,11 +46,13 @@ private slots:
    void nextButtonPressed();
    void previousButtonPressed();
    void showFullSizePictureSlot(size_t ID);
+   void openSourcePageSlot(size_t ID);
 
 signals:
    void loadFinishedSignal();
    void loadNextPageSignal();
    void showFullSizePictureSignal(size_t ID);
+   void openSourcePageSignal(size_t ID);
 
 protected:
    void paintEvent(QPaintEvent *);

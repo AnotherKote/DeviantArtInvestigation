@@ -3,12 +3,13 @@
 #include "CRequester.hpp"
 #include "CDeviantArtParser.hpp"
 #include "CView.hpp"
+#include <QMutex>
 
 class CView;
 class CController: public QObject
 {
    Q_OBJECT
-
+   QMutex mMutex;
    CDeviantArtParser *mDeviantArtParser;
    CRequester mRequester;
    size_t mNumberOfImagesOnPage;
@@ -26,9 +27,11 @@ public:
    void setOffset();
 public slots:
    void loadNextPageSlot();
+   void openSourcePageSlot(QString URL);
 
 signals:
    void loadNextPageSignal();
+   void openSourcePageSignal(QString URL);
 };
 
 #endif // CCONTROLLER_HPP
