@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network webkitwidgets
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,20 +13,20 @@ TEMPLATE = app
 CONFIG += c++11
 CONFIG -= console
 
-SOURCES += main.cpp\
-        CView.cpp \
-    CViewImage.cpp \
-    controller/CController.cpp \
-    controller/CRequester.cpp \
-    controller/CDeviantArtParser.cpp \
-    CFullSizeView.cpp
+SOURCES +=  main.cpp\
+            CView.cpp \
+            CViewImage.cpp \
+            controller/CController.cpp \
+            controller/CRequester.cpp \
+            controller/CDeviantArtParser.cpp \
+            CFullSizeView.cpp
 
 HEADERS  += CView.hpp \
-    CViewImage.hpp \
-    controller/CController.hpp \
-    controller/CRequester.hpp \
-    controller/CDeviantArtParser.hpp \
-    controller/CMyCoolIterator.hpp \
-    CFullSizeView.hpp
+            CViewImage.hpp \
+            controller/CController.hpp \
+            controller/CRequester.hpp \
+            controller/CDeviantArtParser.hpp \
+            controller/CMyCoolIterator.hpp \
+            CFullSizeView.hpp
 
 FORMS    += CView.ui
