@@ -47,6 +47,7 @@ private slots:
    void previousButtonPressed();
    void showFullSizePictureSlot(size_t ID);
    void openSourcePageSlot(size_t ID);
+   void fullSizeDestroyed(int);
 
 signals:
    void loadFinishedSignal();

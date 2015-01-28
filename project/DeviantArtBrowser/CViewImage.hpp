@@ -27,7 +27,7 @@ class CViewImage : public QWidget
    QPoint mClickTrackPoint;
 public:
    explicit CViewImage(QString previewURL, QString fullSizeURL, QString sourcePageURL, QWidget *parent = 0);
-
+   ~CViewImage();
    const QString& getFullSizeLink() const;
    const QString& getSourcePageLink() const;
    const QString& getPreviewURL() const;

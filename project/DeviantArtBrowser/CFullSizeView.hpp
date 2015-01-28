@@ -11,7 +11,7 @@ class CFullSizeView : public QDialog
    QLabel* mImage;
 public:
    explicit CFullSizeView(QImage image, QWidget *parent = 0);
-
+   ~CFullSizeView();
 signals:
 
 public slots:

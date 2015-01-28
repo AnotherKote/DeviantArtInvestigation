@@ -12,6 +12,7 @@ class CController: public QObject
    QMutex mMutex;
    CDeviantArtParser *mDeviantArtParser;
    CRequester mRequester;
+   CRequester mRequester1;
    size_t mNumberOfImagesOnPage;
    size_t mOffset;
 

@@ -14,6 +14,7 @@ CViewImage::CViewImage(QString previewURL, QString fullSizeURL, QString sourcePa
    mSourcePageURL(sourcePageURL),
    mButtonsSize(QSize(50, 20))
 {
+
    mSaveButton.setParent(this);
    mSaveButton.setText("Save");
    mSaveButton.setToolTip("Save this image");
@@ -24,6 +25,10 @@ CViewImage::CViewImage(QString previewURL, QString fullSizeURL, QString sourcePa
 
    connect(&mSaveButton, &QPushButton::released, this, &CViewImage::saveButtonPressed);
    connect(&mSourceURLButton, &QPushButton::released, this, &CViewImage::sourceURLButtonPressed);
+}
+
+CViewImage::~CViewImage()
+{
 }
 
 void CViewImage::saveButtonPressed()

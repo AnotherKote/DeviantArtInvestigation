@@ -16,6 +16,8 @@ CFullSizeView::CFullSizeView(QImage image, QWidget *parent) :
    mImage->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
    mImage->setScaledContents(true);
 
+//   parent->setEnabled(true);
+
    int desktopW = QApplication::desktop()->width();
    int desktopH = QApplication::desktop()->height();
 
@@ -37,6 +39,11 @@ CFullSizeView::CFullSizeView(QImage image, QWidget *parent) :
 
    move(move_to_x, move_to_y);
 
+}
+
+CFullSizeView::~CFullSizeView()
+{
+//   dynamic_cast<QWidget*>(parent())->setEnabled(true);
 }
 
 //void CFullSizeView::paintEvent(QPaintEvent *)

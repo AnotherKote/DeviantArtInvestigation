@@ -17,7 +17,6 @@ class CRequester : public QObject
    Q_OBJECT
 
    QNetworkAccessManager* mNetManager;
-
    QUrl mRedirectionURL;
    QEventLoop mLoadFinishedLoop;
    QByteArray mResultData;

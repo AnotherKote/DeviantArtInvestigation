@@ -29,6 +29,7 @@ CController::~CController()
 void CController::loadFullSizePicture(std::shared_ptr<CViewImage> picture)
 {
 //   EnterCriticalSection(&mCriticalSection);
+
    mMutex.lock();
    (*picture).setFullSizeData(mRequester.get((*picture).getFullSizeLink()));
    mMutex.unlock();

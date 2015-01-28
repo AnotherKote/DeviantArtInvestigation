@@ -9,7 +9,8 @@ CView::CView(QWidget *parent, CController *cont) :
    mChildsAmountHorizontal(4),
    mChildsAmountVertical(4),
    mButtonsHeight(50),
-   mCanShowNextPage(false)
+   mCanShowNextPage(false),
+   mCurrentFullSizeImage(nullptr)
 {
    ui->setupUi(this);
    connect (this, &CView::loadFinishedSignal, this, &CView::displayImagesSlot);
@@ -110,20 +111,33 @@ void CView::previousButtonPressed()
 
 void CView::showFullSizePictureSlot(size_t ID)
 {
-   if(mCurrentFullSizeImage != nullptr)
+   if(mCanShowNextPage)
    {
-      delete mCurrentFullSizeImage;
-   }
-   for(auto it: mImagesToShow[mCurrentList])
-   {
-      if((*it).getID() == ID)
+      this->setEnabled(false);
+      if(mCurrentFullSizeImage != nullptr)
       {
-         mController->loadFullSizePicture(it);
-         mCurrentFullSizeImage = new CFullSizeView((*it).getFullSizeImage(), 0);
-         mCurrentFullSizeImage->show();
-         break;
+         delete mCurrentFullSizeImage;
       }
+      for(auto it: mImagesToShow[mCurrentList])
+      {
+         if((*it).getID() == ID)
+         {
+            mController->loadFullSizePicture(it);
+            mCurrentFullSizeImage = new CFullSizeView((*it).getFullSizeImage(), nullptr);
+            connect(mCurrentFullSizeImage, &QDialog::finished, this, &CView::fullSizeDestroyed);
+            mCurrentFullSizeImage->show();
+            break;
+         }
+      }
+   } else
+   {
+      ///<@todo add ID to querry
    }
+}
+
+void CView::fullSizeDestroyed(int)
+{
+   this->setEnabled(true);
 }
 
 void CView::openSourcePageSlot(size_t ID)
