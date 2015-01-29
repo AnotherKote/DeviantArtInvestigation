@@ -31,7 +31,8 @@ public:
    const QString& getFullSizeLink() const;
    const QString& getSourcePageLink() const;
    const QString& getPreviewURL() const;
-   const QImage &getFullSizeImage() const;
+   const QImage& getFullSizeImage() const;
+   bool saveThisImage(const QString& path) const;
 
    void setFullSizeData (const QByteArray& data);
    void setPreviewData (const QByteArray& data);

@@ -3,6 +3,7 @@
 #include "CViewImage.hpp"
 #include <QPainter>
 #include <QDebug>
+#include <QMessageBox>
 
 size_t CViewImage::mCurrentID = 0;
 
@@ -31,9 +32,28 @@ CViewImage::~CViewImage()
 {
 }
 
+bool CViewImage::saveThisImage(const QString& path) const
+{
+   bool ret = false;
+   if( !mImageFullSize.isNull() )
+   {
+      if( !mFullSizeURL.isEmpty() )
+      {
+         ///
+         /// \brief check directory for existed file names
+         ///
+         QString fileName = mFullSizeURL.right(mFullSizeURL.size() - mFullSizeURL.lastIndexOf("/") - 1);
+         mImageFullSize.save( path + fileName );
+         QMessageBox::information(nullptr, "Info", "Image\n" + fileName + "\nsaved!", MB_OK);
+         ret = true;
+      }
+   }
+   return ret;
+}
+
 void CViewImage::saveButtonPressed()
 {
-
+   emit dynamic_cast<CView*>(parentWidget())->saveFullSizePictureSignal(mID);
 }
 
 void CViewImage::sourceURLButtonPressed()

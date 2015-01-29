@@ -47,6 +47,7 @@ private slots:
    void previousButtonPressed();
    void showFullSizePictureSlot(size_t ID);
    void openSourcePageSlot(size_t ID);
+   void saveFullSizePictureSlot(size_t ID);
    void fullSizeDestroyed(int);
 
 signals:
@@ -54,6 +55,7 @@ signals:
    void loadNextPageSignal();
    void showFullSizePictureSignal(size_t ID);
    void openSourcePageSignal(size_t ID);
+   void saveFullSizePictureSignal(size_t ID);
 
 protected:
    void paintEvent(QPaintEvent *);

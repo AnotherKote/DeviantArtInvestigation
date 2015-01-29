@@ -1,6 +1,7 @@
 #include "CView.hpp"
 #include "ui_CView.h"
 #include "CFullSizeView.hpp"
+#include <QMessageBox>
 
 CView::CView(QWidget *parent, CController *cont) :
    QMainWindow(parent),
@@ -32,6 +33,7 @@ CView::CView(QWidget *parent, CController *cont) :
    connect(&mPrevButton, &QPushButton::released, this, &CView::previousButtonPressed);
    connect(this, &CView::showFullSizePictureSignal, this, &CView::showFullSizePictureSlot);
    connect(this, &CView::openSourcePageSignal, this, &CView::openSourcePageSlot);
+   connect(this, &CView::saveFullSizePictureSignal, this, &CView::saveFullSizePictureSlot);
 }
 
 CView::~CView()
@@ -147,6 +149,28 @@ void CView::openSourcePageSlot(size_t ID)
       if((*it).getID() == ID)
       {
          emit mController->openSourcePageSignal((*it).getSourcePageLink());
+         break;
+      }
+   }
+}
+
+void CView::saveFullSizePictureSlot(size_t ID)
+{
+   for(auto it: mImagesToShow[mCurrentList])
+   {
+      if((*it).getID() == ID)
+      {
+         if((*it).getFullSizeImage().isNull())
+         {
+            this->setEnabled(false);
+            mController->loadFullSizePicture(it);
+            this->setEnabled(true);
+         }
+
+         if( !(*it).saveThisImage("D:\\garbage\\") )
+         {
+            QMessageBox::information(this, "Error", "Cannot save image. \nFile url or file data is empty!", MB_OK);
+         }
          break;
       }
    }
