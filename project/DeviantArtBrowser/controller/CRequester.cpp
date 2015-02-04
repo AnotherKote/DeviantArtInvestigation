@@ -13,14 +13,14 @@ CRequester::CRequester(QObject *parent)
      mRedirectionURL(""),
      mSync(0)
 {
-   InitializeCriticalSection(&mCriticalSection);
+//   InitializeCriticalSection(&mCriticalSection);
 
    QNetworkProxy proxy;
    proxy.setType(QNetworkProxy::HttpProxy);
    proxy.setHostName("localhost");
    proxy.setPort(8888);
 //   QNetworkProxy::setApplicationProxy(proxy);
-   mNetManager->setProxy(proxy);
+//   mNetManager->setProxy(proxy);
 
    QObject::connect(mNetManager, SIGNAL(finished(QNetworkReply*)),&mLoadFinishedLoop, SLOT(quit()));
    QObject::connect(mNetManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finishedSlot(QNetworkReply*)));
@@ -28,8 +28,8 @@ CRequester::CRequester(QObject *parent)
 
 QByteArray CRequester::get(QString url)
 {
-   EnterCriticalSection(&mCriticalSection);
-   mResultDataList.clear();
+//   EnterCriticalSection(&mCriticalSection);
+   mResultDataList .clear();
    qDebug() << "Getting " << url;
 
    QNetworkRequest req(url);
@@ -66,7 +66,7 @@ QByteArray& CRequester::post(QString url, QByteArray &data)
 
 QList<QPair<QByteArray,QString>>& CRequester::getAsync(QList<QString> &urls)
 {
-   EnterCriticalSection(&mCriticalSection);
+//   EnterCriticalSection(&mCriticalSection);
    mResultDataList.clear();
    mSync = urls.size();
    for (auto url: urls)
@@ -87,7 +87,7 @@ QList<QPair<QByteArray,QString>>& CRequester::getAsync(QList<QString> &urls)
 CRequester::~CRequester()
 {
    delete mNetManager;
-   DeleteCriticalSection(&mCriticalSection);
+//   DeleteCriticalSection(&mCriticalSection);
 }
 
 void CRequester::finishedSlot(QNetworkReply *reply)
@@ -120,5 +120,5 @@ void CRequester::finishedSlot(QNetworkReply *reply)
 
    delete reply;
 
-   LeaveCriticalSection(&mCriticalSection);
+//   LeaveCriticalSection(&mCriticalSection);
 }

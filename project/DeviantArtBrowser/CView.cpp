@@ -126,11 +126,8 @@ void CView::showFullSizePictureSlot(size_t ID)
          {
             if((*it).getFullSizeImage().isNull())
             {
-//               this->setEnabled(false);
                mController->loadFullSizePicture(it);
-//               this->setEnabled(true);
             }
-//            mController->loadFullSizePicture(it);
             mCurrentFullSizeImage = new CFullSizeView((*it).getFullSizeImage(), nullptr);
             connect(mCurrentFullSizeImage, &QDialog::finished, this, &CView::fullSizeDestroyed);
             mCurrentFullSizeImage->show();

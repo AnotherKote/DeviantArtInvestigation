@@ -7,7 +7,7 @@ CController::CController()
      mOffset(0),
      mView(nullptr)
 {
-   InitializeCriticalSection(&mCriticalSection);
+//   InitializeCriticalSection(&mCriticalSection);
 
    mView = new CView(nullptr, this);
    mView->show();
@@ -21,7 +21,7 @@ CController::CController()
 
 CController::~CController()
 {
-   DeleteCriticalSection(&mCriticalSection);
+//   DeleteCriticalSection(&mCriticalSection);
    delete mView;
    delete mDeviantArtParser;
 }
