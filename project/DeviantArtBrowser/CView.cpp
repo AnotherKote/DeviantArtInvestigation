@@ -14,10 +14,14 @@ CView::CView(QWidget *parent, CController *cont) :
    mCurrentFullSizeImage(nullptr)
 {
    ui->setupUi(this);
+
+   setWindowIcon(QIcon("Deviantart_logo.png"));
+   setWindowTitle("Devart browser");
+
    connect (this, &CView::loadFinishedSignal, this, &CView::displayImagesSlot);
 //   setStyleSheet("background:transparent;");
 //   setAttribute(Qt::WA_TranslucentBackground);
-   //setWindowFlags(Qt::FramelessWindowHint);
+   //setWindowsFlags(Qt::FramelessWindowHint);
    mNextButton.setParent(this);
    mNextButton.setText("Next");
    mNextButton.setToolTip("Next page");
@@ -108,7 +112,7 @@ void CView::nextButtonPressed()
 
 void CView::previousButtonPressed()
 {
-   qDebug() << "prev";
+//   qDebug() << "prev";
 }
 
 void CView::showFullSizePictureSlot(size_t ID)

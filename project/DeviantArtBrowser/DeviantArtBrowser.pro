@@ -13,6 +13,8 @@ TEMPLATE = app
 CONFIG += c++11
 CONFIG -= console
 
+RC_ICONS = icon.ico
+
 SOURCES +=  main.cpp\
             CView.cpp \
             CViewImage.cpp \
